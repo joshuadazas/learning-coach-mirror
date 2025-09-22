@@ -1,7 +1,12 @@
-
 import type { FormData } from './types';
 
 export const LEARNING_PREFERENCES: string[] = ['Podcasts', 'Books', 'Courses', 'Articles', 'Videos'];
+
+export const PRICE_PREFERENCES: { id: FormData['price_preference'], label: string }[] = [
+  { id: 'Any', label: 'Any' },
+  { id: 'Free', label: 'Free' },
+  { id: 'Paid', label: 'Paid' },
+];
 
 export const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1u-W7UOxT1hQlq80c77OfQ7nSFpD3o2o-mslHekaM_Z4/export?format=csv&gid=0';
 
@@ -17,6 +22,7 @@ export const MOCK_WORKFLOW_DATA: FormData = {
   hard_skills: 'System Design, Go (Golang), Kubernetes',
   soft_skills: 'Mentorship, Technical Leadership, Communication',
   learning_preferences: ['Courses', 'Books', 'Articles'],
+  price_preference: 'Any',
   time_available_per_week: '5-7 hours',
   additional_comments: 'I\'m really interested in distributed systems and microservices architecture. Any resources on those topics would be great!',
 };

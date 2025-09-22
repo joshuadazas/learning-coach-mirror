@@ -26,16 +26,26 @@ Your task is to analyze a completed Slack workflow and generate a concise "Learn
 
 ### Instructions
 1.  **Analyze User Data:** Review the user's information to understand their goals, skills, and preferences.
-2.  **PRIMARY MANDATE - Find Verified & Accessible Resources:** This is your most important instruction. Your absolute top priority is to provide links that are guaranteed to work and are accessible to the user in **${formData.country}**.
-    *   **Use Google Search:** You MUST use your search tool to find every resource.
-    *   **Verify Accessibility:** Before recommending any resource, you MUST verify that it is available and accessible in **${formData.country}**. This includes checking for regional restrictions on courses, shipping availability for books, etc. If you cannot confirm 100% availability, discard the resource and find an alternative.
-    *   **Guarantee Link Integrity:** You MUST use the exact, complete, and direct URL from your verified search result. DO NOT invent, shorten, or modify any part of the URL. Recommending a non-working link is a complete failure of your task.
-3.  **Select 4 Resources:** Based on your verified search, select exactly 4 relevant and currently available learning resources:
-    *   2 resources for the user's "Hard Skills to Develop".
-    *   2 resources for the user's "Soft Skills to Develop".
-4.  **Prioritize:**
-    *   The first recommendation must match one of the user's preferred learning formats (e.g., if they prefer 'Books', the first resource should be a book).
-    *   Always prioritize free options. Only suggest a paid resource if no free alternatives are a good fit.
+2.  **PRIMARY MANDATE - VERIFY ALL LINKS:** This is your most important instruction. Recommending a non-working or inaccessible link is a complete failure of your task. You must treat every link as potentially broken until you have verified it using the checklist below.
+    *   **Use Google Search Reliably:** You MUST use your search tool for EVERY resource. Do not use your internal knowledge. Analyze the search result snippets carefully for warning signs.
+    *   **CRITICAL VERIFICATION CHECKLIST:** For every URL, you MUST perform these checks:
+        1.  **Check for "Dead Link" Keywords:** In the search result title or description, actively look for phrases like: "Video unavailable," "This video is private," "Video not available in your country," "Content removed," "Account terminated," "Page not found," or "404". If you see ANY of these, DISCARD the link immediately.
+        2.  **Confirm Regional Availability:** The resource MUST be accessible in **${formData.country}**.
+            *   When you search, add "available in ${formData.country}" to your query to improve results.
+            *   Prioritize content from major, global platforms (like official YouTube channels for major tech companies, globally recognized universities on Coursera/edX) as they are less likely to be region-locked.
+            *   If a search result gives any hint of a regional restriction, find an alternative. Assume it's blocked if there is any doubt.
+        3.  **Ensure Direct Access:** The link must go directly to the content. It cannot be behind a paywall (unless it's a paid resource), a mandatory sign-up, or a broken redirect.
+    *   **Platform-Specific Rules:**
+        *   For "Podcasts", you MUST provide links from Spotify or YouTube. Do not use Apple Podcasts or other platforms.
+        *   For "Videos", you MUST prioritize YouTube and Vimeo.
+    *   **Final Guarantee:** You MUST use the exact, complete, and direct URL from your verified search result. DO NOT invent, shorten, or modify URLs. Before outputting the final list, do one last mental check: "Have I rigorously checked every single one of these 4 links against the checklist for a user in ${formData.country}?". Your reputation depends on these links working.
+3.  **Select 4 Resources:** Based on your verified search, select exactly 4 relevant and currently available learning resources that meet the following criteria:
+    *   **Strict Adherence to Preferences:** Your highest priority is to ensure ALL 4 resources strictly match one of the user's specified "Learning Preferences". For example, if the user only selects 'Podcasts', you MUST find 4 relevant podcasts. If they select 'Courses' and 'Videos', every resource must be a course or a video. There are no exceptions to this rule.
+    *   **Balance Skills:** While respecting the format preferences, distribute the resources as evenly as possible between the user's "Hard Skills to Develop" and "Soft Skills to Develop". Aim for 2 of each.
+4.  **Adhere to Price Preference:** You must strictly follow the user's \`Price Preference\`.
+    *   If 'Free' is selected, you MUST only provide free resources.
+    *   If 'Paid' is selected, you should prioritize paid resources but can include free ones if they are of exceptional quality.
+    *   If 'Any' is selected, prioritize free options but include paid ones if they are clearly superior.
 5.  **Format the Output:** Create a Slack-ready message. Follow the format and example below EXACTLY.
     *   **Resource Title Rule:** For the resource title, you MUST use the name of the skill being developed that is most relevant to the resource (e.g., "System Design", "Technical Leadership", "Go Programming"). DO NOT use the actual title of the book, course, or article. The title MUST be the skill name.
     *   **Separator Rule:** Use a single em-dash "—" surrounded by spaces as the separator between parts (Title, Price, Type).
@@ -86,6 +96,7 @@ Go crush it.
 - Hard Skills to Develop: ${formData.hard_skills}
 - Soft Skills to Develop: ${formData.soft_skills}
 - What type of format do you prefer for your training?: ${preferencesWithEmojis}
+- Price Preference: ${formData.price_preference}
 - Time Available Per Week: ${formData.time_available_per_week}
 - Additional Comments: ${formData.additional_comments}
 

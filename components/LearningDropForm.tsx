@@ -1,4 +1,3 @@
-
 import React from 'react';
 import type { FormData } from '../types';
 
@@ -40,6 +39,7 @@ const TextArea: React.FC<TextAreaProps> = ({ label, id, ...props }) => (
 interface LearningDropFormProps {
   formData: FormData;
   learningPreferences: string[];
+  pricePreferences: { id: FormData['price_preference'], label: string }[];
   onFormChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
@@ -49,6 +49,7 @@ interface LearningDropFormProps {
 const LearningDropForm: React.FC<LearningDropFormProps> = ({
   formData,
   learningPreferences,
+  pricePreferences,
   onFormChange,
   onCheckboxChange,
   onSubmit,
@@ -91,6 +92,26 @@ const LearningDropForm: React.FC<LearningDropFormProps> = ({
                 className="h-4 w-4 rounded border-[#6D2F5A] bg-[#23174B] text-[#FF5A70] focus:ring-[#FF5A70]"
               />
               <label htmlFor={pref} className="ml-2 text-sm text-[#FFDEE2]">{pref}</label>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-[#FFBDC6] mb-2">Price Preference</label>
+        <div className="flex items-center space-x-6">
+          {pricePreferences.map(pref => (
+            <div key={pref.id} className="flex items-center">
+              <input
+                id={`price_${pref.id}`}
+                name="price_preference"
+                type="radio"
+                value={pref.id}
+                checked={formData.price_preference === pref.id}
+                onChange={onFormChange}
+                className="h-4 w-4 border-[#6D2F5A] bg-[#23174B] text-[#FF5A70] focus:ring-[#FF5A70]"
+              />
+              <label htmlFor={`price_${pref.id}`} className="ml-2 text-sm text-[#FFDEE2]">{pref.label}</label>
             </div>
           ))}
         </div>

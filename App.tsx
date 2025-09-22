@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import type { FormData, SearchSource } from './types';
 import { generateLearningDrop } from './services/geminiService';
-import { MOCK_WORKFLOW_DATA, LEARNING_PREFERENCES } from './constants';
+import { MOCK_WORKFLOW_DATA, LEARNING_PREFERENCES, PRICE_PREFERENCES } from './constants';
 import Header from './components/Header';
 import LearningDropForm from './components/LearningDropForm';
 import LearningDropOutput from './components/LearningDropOutput';
@@ -64,6 +64,7 @@ const App: React.FC = () => {
            <LearningDropForm
             formData={formData}
             learningPreferences={LEARNING_PREFERENCES}
+            pricePreferences={PRICE_PREFERENCES}
             onFormChange={handleFormChange}
             onCheckboxChange={handleCheckboxChange}
             onSubmit={handleSubmit}

@@ -1,4 +1,3 @@
-
 export interface FormData {
   name: string;
   email: string;
@@ -11,6 +10,7 @@ export interface FormData {
   hard_skills: string;
   soft_skills: string;
   learning_preferences: string[];
+  price_preference: 'Any' | 'Free' | 'Paid';
   time_available_per_week: string;
   additional_comments: string;
 }
