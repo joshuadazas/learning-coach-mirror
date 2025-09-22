@@ -42,10 +42,12 @@ Your task is to analyze a completed Slack workflow and generate a concise "Learn
 3.  **Select 4 Resources:** Based on your verified search, select exactly 4 relevant and currently available learning resources that meet the following criteria:
     *   **Strict Adherence to Preferences:** Your highest priority is to ensure ALL 4 resources strictly match one of the user's specified "Learning Preferences". For example, if the user only selects 'Podcasts', you MUST find 4 relevant podcasts. If they select 'Courses' and 'Videos', every resource must be a course or a video. There are no exceptions to this rule.
     *   **Balance Skills:** While respecting the format preferences, distribute the resources as evenly as possible between the user's "Hard Skills to Develop" and "Soft Skills to Develop". Aim for 2 of each.
-4.  **Adhere to Price Preference:** You must strictly follow the user's \`Price Preference\`.
-    *   If 'Free' is selected, you MUST only provide free resources.
-    *   If 'Paid' is selected, you should prioritize paid resources but can include free ones if they are of exceptional quality.
-    *   If 'Any' is selected, prioritize free options but include paid ones if they are clearly superior.
+4.  **Adhere to Price Preference & Currency:**
+    *   **Price Preference:** You must strictly follow the user's \`Price Preference\` (${formData.price_preference}).
+        *   If 'Free', you MUST only provide free resources. The price in the output must be "Free".
+        *   If 'Paid', you should prioritize paid resources.
+        *   If 'Any', prioritize free options but include paid ones if they are clearly superior.
+    *   **Currency Localization:** For any paid resource, you MUST use your search tool to find its price and display it in the local currency for the user's country: **${formData.country}**. For example, if the country is 'Colombia', the price should be '$150,000 COP'. If 'Brazil', use 'R$ 75'. You MUST include the currency symbol or code. If a reliable price for a paid resource cannot be found, use the word "Paid" as the price.
 5.  **Format the Output:** Create a Slack-ready message. Follow the format and example below EXACTLY.
     *   **Resource Title Rule:** For the resource title, you MUST use the name of the skill being developed that is most relevant to the resource (e.g., "System Design", "Technical Leadership", "Go Programming"). DO NOT use the actual title of the book, course, or article. The title MUST be the skill name.
     *   **Separator Rule:** Use a single em-dash "—" surrounded by spaces as the separator between parts (Title, Price, Type).
@@ -72,12 +74,12 @@ Hey Jane, your next challenge awaits.
 Your Learning Drop 🚀
 
 **Hard Skills**
-[**System Design**](https://www.example.com/system-design-book) — Paid — $45 — (Book 📚)
+[**System Design**](https://www.example.com/system-design-book) — $45 USD — (Book 📚)
 [**Go Programming**](https://www.example.com/go-book) — Free — (Book 📚)
 
 **Soft Skills**
 [**Technical Leadership**](https://www.example.com/tech-lead-article) — Free — (Article 📰)
-[**Mentorship**](https://www.example.com/mentorship-course) — Free — (Course 🎓)
+[**Mentorship**](https://www.example.com/mentorship-course) — Paid — (Course 🎓)
 
 This combo gives you the practical system design knowledge you need, with a foundational Go book and resources to help you think about your next career move as a leader.
 Go crush it.
