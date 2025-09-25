@@ -28,3 +28,8 @@ export interface SearchSource {
   title: string;
   uri: string;
 }
+
+export interface LearningDrop {
+  message: string;
+  sources: SearchSource[];
+}
