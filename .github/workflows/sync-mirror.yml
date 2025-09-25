@@ -1,0 +1,54 @@
+name: Sync Mirror Repository
+
+on:
+  schedule:
+    # Run every 15 minutes
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout mirror repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Fetch all history
+        
+    - name: Add source remote
+      run: |
+        git remote add source ./test-learning-coach.git
+        
+    - name: Fetch from source
+      run: |
+        git fetch source
+        
+    - name: Check for changes
+      id: check-changes
+      run: |
+        if git diff --quiet HEAD source/main; then
+          echo "no-changes=true" >> $GITHUB_OUTPUT
+        else
+          echo "no-changes=false" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Merge changes
+      if: steps.check-changes.outputs.no-changes == 'false'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git merge source/main --no-edit
+        
+    - name: Push to origin
+      if: steps.check-changes.outputs.no-changes == 'false'
+      run: |
+        git push origin main
+        
+    - name: Log sync status
+      run: |
+        if [ "${{ steps.check-changes.outputs.no-changes }}" == "true" ]; then
+          echo "✅ No changes to sync"
+        else
+          echo "✅ Successfully synced changes"
+        fi
