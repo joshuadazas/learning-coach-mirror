@@ -1,10 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import type { FormData, SearchSource } from '../types';
-
-interface LearningDropResult {
-  message: string;
-  sources: SearchSource[];
-}
+import type { FormData, SearchSource, LearningDrop } from '../types';
 
 const buildPrompt = (formData: FormData): string => {
   const preferenceEmojis: { [key: string]: string } = {
@@ -106,7 +101,7 @@ Generate the Learning Drop message now.
 `;
 };
 
-export const generateLearningDrop = async (formData: FormData): Promise<LearningDropResult> => {
+export const generateLearningDrop = async (formData: FormData): Promise<LearningDrop> => {
   if (!process.env.API_KEY) {
     throw new Error("API_KEY environment variable not set");
   }

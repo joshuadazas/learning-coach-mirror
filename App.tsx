@@ -1,16 +1,12 @@
 import React, { useState, useCallback } from 'react';
-import type { FormData, SearchSource } from './types';
+import type { FormData, SearchSource, LearningDrop } from './types';
 import { generateLearningDrop } from './services/geminiService';
 import { MOCK_WORKFLOW_DATA, LEARNING_PREFERENCES, PRICE_PREFERENCES } from './constants';
 import Header from './components/Header';
 import LearningDropForm from './components/LearningDropForm';
 import LearningDropOutput from './components/LearningDropOutput';
 import Loader from './components/Loader';
-
-interface LearningDrop {
-  message: string;
-  sources: SearchSource[];
-}
+import { sendToN8n } from './services/n8nService';
 
 const App: React.FC = () => {
   const [formData, setFormData] = useState<FormData>(MOCK_WORKFLOW_DATA);
@@ -25,6 +21,7 @@ const App: React.FC = () => {
     try {
       const result = await generateLearningDrop(formData);
       setLearningDrop(result);
+      sendToN8n(formData, result);
     } catch (err) {
       setGenerationError('Failed to generate learning drop. Please try again.');
       console.error(err);
