@@ -9,22 +9,21 @@ export const sendToN8n = async (formData: FormData, learningDrop: LearningDrop):
   };
 
   try {
-    const response = await fetch(N8N_WEBHOOK_URL, {
+    await fetch(N8N_WEBHOOK_URL, {
       method: 'POST',
+      mode: 'no-cors', // Bypass CORS errors for fire-and-forget webhooks
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(payload),
     });
 
-    if (!response.ok) {
-      console.error(`n8n webhook call failed with status: ${response.status}`);
-      const responseBody = await response.text();
-      console.error('n8n response:', responseBody);
-    } else {
-      console.log('Successfully sent data to n8n workflow.');
-    }
+    // In 'no-cors' mode, we can't inspect the response to confirm success.
+    // We assume it was sent successfully if no network error was thrown.
+    console.log('Successfully initiated data send to n8n workflow.');
+
   } catch (error) {
+    // This will typically catch network-level errors, not HTTP status errors.
     console.error('Error sending data to n8n webhook:', error);
   }
 };
