@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+/test-learning-coach.git
+/test-learning-coach.git/*
+
