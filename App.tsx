@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import type { FormData, SearchSource, LearningDrop } from './types';
 import { generateLearningDrop } from './services/geminiService';
-import { MOCK_WORKFLOW_DATA, LEARNING_PREFERENCES, PRICE_PREFERENCES } from './constants';
+import { INITIAL_FORM_DATA, LEARNING_PREFERENCES, PRICE_PREFERENCES } from './constants';
 import Header from './components/Header';
 import LearningDropForm from './components/LearningDropForm';
 import LearningDropOutput from './components/LearningDropOutput';
@@ -9,7 +9,7 @@ import Loader from './components/Loader';
 import { sendToN8n } from './services/n8nService';
 
 const App: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>(MOCK_WORKFLOW_DATA);
+  const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [learningDrop, setLearningDrop] = useState<LearningDrop | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
