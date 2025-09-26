@@ -10,6 +10,23 @@ export const PRICE_PREFERENCES: { id: FormData['price_preference'], label: strin
 
 export const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1u-W7UOxT1hQlq80c77OfQ7nSFpD3o2o-mslHekaM_Z4/export?format=csv&gid=0';
 
+export const INITIAL_FORM_DATA: FormData = {
+  name: '',
+  email: '',
+  country: '',
+  area: '',
+  current_position: '',
+  time_in_current_role: '',
+  short_term_goals: '',
+  long_term_goals: '',
+  hard_skills: '',
+  soft_skills: '',
+  learning_preferences: [],
+  price_preference: 'Any',
+  time_available_per_week: '',
+  additional_comments: '',
+};
+
 export const MOCK_WORKFLOW_DATA: FormData = {
   name: 'Alex Chen',
   email: 'alex.chen@ontop.com',
