@@ -65,8 +65,28 @@ const LearningDropForm: React.FC<LearningDropFormProps> = ({
         <Input label="Area (e.g., Marketing, Engineering)" id="area" name="area" value={formData.area} onChange={onFormChange} required />
         <Input label="Country" id="country" name="country" value={formData.country} onChange={onFormChange} required placeholder="e.g., Colombia" />
         <Input label="Current Position" id="current_position" name="current_position" value={formData.current_position} onChange={onFormChange} required />
-        <Input label="Time in Current Role" id="time_in_current_role" name="time_in_current_role" value={formData.time_in_current_role} onChange={onFormChange} placeholder="e.g., 1 year 3 months" required />
-        <Input label="Time Available Per Week" id="time_available_per_week" name="time_available_per_week" value={formData.time_available_per_week} onChange={onFormChange} placeholder="e.g., 3-5 hours" required />
+        <Input
+          label="Time in Current Role"
+          id="time_in_current_role"
+          name="time_in_current_role"
+          value={formData.time_in_current_role}
+          onChange={onFormChange}
+          placeholder="e.g., 1 year 3 months"
+          required
+          pattern=".*\d+.*"
+          title="Please include a number in the duration (e.g., '1 year' or '6 months')."
+        />
+        <Input
+          label="Time Available Per Week"
+          id="time_available_per_week"
+          name="time_available_per_week"
+          value={formData.time_available_per_week}
+          onChange={onFormChange}
+          placeholder="e.g., 3-5 hours"
+          required
+          pattern=".*\d+.*(hour|hr)s?.*"
+          title="Please include a number and a time unit (e.g., '5 hours' or '3-5 hrs')."
+        />
       </div>
 
       <div className="space-y-6">
