@@ -1,5 +1,6 @@
+
 import React, { useState, useCallback } from 'react';
-import type { FormData, SearchSource, LearningDrop } from './types';
+import type { FormData, LearningDrop } from './types';
 import { generateLearningDrop } from './services/geminiService';
 import { INITIAL_FORM_DATA, LEARNING_PREFERENCES, PRICE_PREFERENCES } from './constants';
 import Header from './components/Header';
@@ -12,21 +13,31 @@ const App: React.FC = () => {
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
   const [learningDrop, setLearningDrop] = useState<LearningDrop | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [isRegenerating, setIsRegenerating] = useState<boolean>(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
 
-  const handleGenerate = useCallback(async () => {
-    setIsGenerating(true);
+  const handleGenerate = useCallback(async (previousMessage?: string) => {
+    const isRegen = typeof previousMessage === 'string';
+    if (isRegen) {
+      setIsRegenerating(true);
+    } else {
+      setIsGenerating(true);
+      setLearningDrop(null);
+    }
     setGenerationError(null);
-    setLearningDrop(null);
+    
     try {
-      const result = await generateLearningDrop(formData);
+      const result = await generateLearningDrop(formData, previousMessage);
       setLearningDrop(result);
-      sendToN8n(formData, result);
+      if (!isRegen) {
+        sendToN8n(formData, result);
+      }
     } catch (err) {
       setGenerationError('Failed to generate learning drop. Please try again.');
       console.error(err);
     } finally {
       setIsGenerating(false);
+      setIsRegenerating(false);
     }
   }, [formData]);
 
@@ -65,7 +76,7 @@ const App: React.FC = () => {
             onFormChange={handleFormChange}
             onCheckboxChange={handleCheckboxChange}
             onSubmit={handleSubmit}
-            isLoading={isGenerating}
+            isLoading={isGenerating || isRegenerating}
           />
 
           {isGenerating && <Loader />}
@@ -81,8 +92,8 @@ const App: React.FC = () => {
             <LearningDropOutput 
               message={learningDrop.message} 
               sources={learningDrop.sources}
-              onRegenerate={handleGenerate} 
-              isGenerating={isGenerating} 
+              onRegenerate={() => handleGenerate(learningDrop.message)} 
+              isGenerating={isRegenerating} 
             />
           )}
         </main>
