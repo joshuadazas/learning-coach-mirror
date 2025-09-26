@@ -9,6 +9,7 @@ const Input: React.FC<InputProps> = ({ label, id, ...props }) => (
   <div>
     <label htmlFor={id} className="block text-sm font-medium text-[#FFBDC6] mb-1">
       {label}
+      {props.required && <span className="text-[#DE485D] ml-1">*</span>}
     </label>
     <input
       id={id}
@@ -26,6 +27,7 @@ const TextArea: React.FC<TextAreaProps> = ({ label, id, ...props }) => (
     <div>
       <label htmlFor={id} className="block text-sm font-medium text-[#FFBDC6] mb-1">
         {label}
+        {props.required && <span className="text-[#DE485D] ml-1">*</span>}
       </label>
       <textarea
         id={id}
@@ -60,25 +62,28 @@ const LearningDropForm: React.FC<LearningDropFormProps> = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input label="Name" id="name" name="name" value={formData.name} onChange={onFormChange} required />
         <Input label="Email" id="email" name="email" type="email" value={formData.email} onChange={onFormChange} required />
-        <Input label="Area (e.g., Marketing, Engineering)" id="area" name="area" value={formData.area} onChange={onFormChange} />
+        <Input label="Area (e.g., Marketing, Engineering)" id="area" name="area" value={formData.area} onChange={onFormChange} required />
         <Input label="Country" id="country" name="country" value={formData.country} onChange={onFormChange} required placeholder="e.g., Colombia" />
-        <Input label="Current Position" id="current_position" name="current_position" value={formData.current_position} onChange={onFormChange} />
-        <Input label="Time in Current Role" id="time_in_current_role" name="time_in_current_role" value={formData.time_in_current_role} onChange={onFormChange} placeholder="e.g., 1 year 3 months" />
-        <Input label="Time Available Per Week" id="time_available_per_week" name="time_available_per_week" value={formData.time_available_per_week} onChange={onFormChange} placeholder="e.g., 3-5 hours" />
+        <Input label="Current Position" id="current_position" name="current_position" value={formData.current_position} onChange={onFormChange} required />
+        <Input label="Time in Current Role" id="time_in_current_role" name="time_in_current_role" value={formData.time_in_current_role} onChange={onFormChange} placeholder="e.g., 1 year 3 months" required />
+        <Input label="Time Available Per Week" id="time_available_per_week" name="time_available_per_week" value={formData.time_available_per_week} onChange={onFormChange} placeholder="e.g., 3-5 hours" required />
       </div>
 
       <div className="space-y-6">
-        <TextArea label="Short-Term Goals (6-12 months)" id="short_term_goals" name="short_term_goals" value={formData.short_term_goals} onChange={onFormChange} />
-        <TextArea label="Long-Term Goals (1-2 years)" id="long_term_goals" name="long_term_goals" value={formData.long_term_goals} onChange={onFormChange} />
+        <TextArea label="Short-Term Goals (6-12 months)" id="short_term_goals" name="short_term_goals" value={formData.short_term_goals} onChange={onFormChange} required />
+        <TextArea label="Long-Term Goals (1-2 years)" id="long_term_goals" name="long_term_goals" value={formData.long_term_goals} onChange={onFormChange} required />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Input label="Hard Skills to Develop (up to 3)" id="hard_skills" name="hard_skills" value={formData.hard_skills} onChange={onFormChange} placeholder="e.g., SQL, Figma, React" />
-        <Input label="Soft Skills to Develop (up to 3)" id="soft_skills" name="soft_skills" value={formData.soft_skills} onChange={onFormChange} placeholder="e.g., Public Speaking, Leadership" />
+        <Input label="Hard Skills to Develop (up to 3)" id="hard_skills" name="hard_skills" value={formData.hard_skills} onChange={onFormChange} placeholder="e.g., SQL, Figma, React" required />
+        <Input label="Soft Skills to Develop (up to 3)" id="soft_skills" name="soft_skills" value={formData.soft_skills} onChange={onFormChange} placeholder="e.g., Public Speaking, Leadership" required />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-[#FFBDC6] mb-2">Learning Preferences</label>
+        <label className="block text-sm font-medium text-[#FFBDC6] mb-2">
+          Learning Preferences
+          <span className="text-[#DE485D] ml-1">*</span>
+        </label>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
           {learningPreferences.map(pref => (
             <div key={pref} className="flex items-center">
@@ -98,7 +103,10 @@ const LearningDropForm: React.FC<LearningDropFormProps> = ({
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-[#FFBDC6] mb-2">Price Preference</label>
+        <label className="block text-sm font-medium text-[#FFBDC6] mb-2">
+          Price Preference
+          <span className="text-[#DE485D] ml-1">*</span>
+        </label>
         <div className="flex items-center space-x-6">
           {pricePreferences.map(pref => (
             <div key={pref.id} className="flex items-center">
