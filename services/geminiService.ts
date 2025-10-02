@@ -146,7 +146,7 @@ export const generateLearningDrop = async (formData: FormData, previousMessage?:
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: prompt,
-      config: {
+      config: { temperature: 0.2,
         tools: [{ googleSearch: {} }],
       },
     });
