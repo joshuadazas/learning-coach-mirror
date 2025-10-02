@@ -26,12 +26,12 @@ const LearningDropOutput: React.FC<LearningDropOutputProps> = ({ message, source
   }, [isCopied]);
   
   const renderMessage = () => {
-    // Regex for standard markdown bold link format: [**Title**](url) — Price — (Type)
-    // This regex now accepts em-dash, en-dash, and hyphens as separators for robustness.
-    const resourceRegex = /^\[\*\*(?<title>.*?)\*\*\]\((?<url>https?:\/\/\S+)\)[\s-—–]+(?<price>.*?)[\s-—–]+\((?<type>.*?)\)$/;
+    // Regex for format: **Title** — Price — ([Type 🎓](url))
+    // This regex accepts em-dash, en-dash, and hyphens as separators for robustness.
+    const resourceRegex = /^\*\*(?<title>.*?)\*\*[\s-—–]+(?<price>.*?)[\s-—–]+\(\[(?<type>.*?)\]\((?<url>https?:\/\/\S+)\)\)$/;
     
-    // Fallback regex to find a standard markdown bold link anywhere in the line.
-    const fallbackMarkdownRegex = /\[\*\*(?<title>.*?)\*\*\]\((?<url>https?:\/\/\S+)\)/;
+    // Fallback regex to find any standard markdown link.
+    const fallbackMarkdownRegex = /\[(?<title>.*?)\]\((?<url>https?:\/\/\S+)\)/;
 
     return message.split('\n').map((line, index) => {
       const trimmedLine = line.trim();
@@ -51,9 +51,11 @@ const LearningDropOutput: React.FC<LearningDropOutputProps> = ({ message, source
         const { title, price, url, type } = match.groups;
         return (
           <div key={index} className="mb-4">
-            <a href={url.trim()} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-white hover:underline">{title.trim()}</a>
+            <div className="text-lg font-bold text-white">{title.trim()}</div>
             <div className="text-sm text-[#FFBDC6] mt-1">
-              ({type.trim()}) — <span className="font-semibold text-[#FF8C9C]">{price.trim()}</span>
+              <a href={url.trim()} target="_blank" rel="noopener noreferrer" className="hover:underline">({type.trim()})</a>
+              <span className="mx-1">—</span>
+              <span className="font-semibold text-[#FF8C9C]">{price.trim()}</span>
             </div>
           </div>
         );

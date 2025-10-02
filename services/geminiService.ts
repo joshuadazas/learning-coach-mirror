@@ -75,24 +75,21 @@ ${regenerationInstruction}
 3.  **Balance Skills:** Distribute resources evenly between "Hard Skills" and "Soft Skills" (aim for 2 of each).
 4.  **Adhere to Price:** Strictly follow the user's \`Price Preference\` (${formData.price_preference}). For paid resources, find the price in the local currency for **${formData.country}**. If a reliable local price is not found, use the word "Paid". For free, use "Free".
 5.  **Format Correctly:** Follow the output format and example below EXACTLY.
-    *   The resource title MUST be the skill name (e.g., "System Design"), not the actual title of the content.
+    *   The resource title MUST be the skill name (e.g., "System Design"), not the actual title of the content. It must be bolded.
     *   Use " — " as the separator.
     *   No extra text, comments, or introductions.
     *   Include the correct emoji for the resource type: 🎧 📚 🎓 📰 🎬.
-
-### Platform-Specific Directives
-*   **Videos:** If a YouTube link fails verification, you are REQUIRED to immediately search for an alternative on a platform like Vimeo before discarding the resource topic entirely.
-*   **Podcasts:** You MUST prioritize Spotify for all podcast links. Only use YouTube as a fallback if a working Spotify link cannot be found.
+    *   The hyperlink MUST be on the resource type, not the title.
 
 ### Output Format
 Start with a personalized greeting using the user's name.
 Add the title: Your Learning Drop 🚀
 Add a subheading: **Hard Skills**
 List the 2 hard skill resources. Each entry must follow this exact format on a new line:
-[**Skill Name**](Direct Link URL) — Price — (Type 🎓)
+**Skill Name** — Price — ([Type 🎓](Direct Link URL))
 Add a subheading: **Soft Skills**
 List the 2 soft skill resources. Each entry must follow this exact format on a new line:
-[**Skill Name**](Direct Link URL) — Price — (Type 🎓)
+**Skill Name** — Price — ([Type 🎓](Direct Link URL))
 
 Write a short, 1-2 sentence summary explaining why this specific combination of resources is a great fit.
 End with a brief, motivational statement.
@@ -102,12 +99,12 @@ Hey Jane, your next challenge awaits.
 Your Learning Drop 🚀
 
 **Hard Skills**
-[**System Design**](https://www.example.com/system-design-book) — $45 USD — (Book 📚)
-[**Go Programming**](https://www.example.com/go-book) — Free — (Book 📚)
+**System Design** — $45 USD — ([Book 📚](https://www.example.com/system-design-book))
+**Go Programming** — Free — ([Book 📚](https://www.example.com/go-book))
 
 **Soft Skills**
-[**Technical Leadership**](https://www.example.com/tech-lead-article) — Free — (Article 📰)
-[**Mentorship**](https://www.example.com/mentorship-course) — Paid — (Course 🎓)
+**Technical Leadership** — Free — ([Article 📰](https://www.example.com/tech-lead-article))
+**Mentorship** — Paid — ([Course 🎓](https://www.example.com/mentorship-course))
 
 This combo gives you the practical system design knowledge you need, with a foundational Go book and resources to help you think about your next career move as a leader.
 Go crush it.
