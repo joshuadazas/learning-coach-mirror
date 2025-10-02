@@ -91,7 +91,7 @@ Add a subheading: **Soft Skills**
 List the 2 soft skill resources. Each entry must follow this exact format on a new line:
 **Skill Name** — Price — ([Type 🎓](Direct Link URL))
 
-Write a short, 1-2 sentence summary explaining why this specific combination of resources is a great fit.
+Write a short, 1-2 sentence summary explaining why this specific combination of resources is a great fit. **Crucially, do NOT mention the user's country or the regional availability of the resources in your summary or anywhere in the user-facing output.** Your country-specific search is an internal-only process.
 End with a brief, motivational statement.
 
 ### Example Output
