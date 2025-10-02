@@ -53,7 +53,7 @@ const LearningDropOutput: React.FC<LearningDropOutputProps> = ({ message, source
           <div key={index} className="mb-4">
             <div className="text-lg font-bold text-white">{title.trim()}</div>
             <div className="text-sm text-[#FFBDC6] mt-1">
-              <a href={url.trim()} target="_blank" rel="noopener noreferrer" className="hover:underline">({type.trim()})</a>
+              <a href={url.trim()} target="_blank" rel="noopener noreferrer" className="text-sky-400 underline hover:text-sky-300 transition-colors">({type.trim()})</a>
               <span className="mx-1">—</span>
               <span className="font-semibold text-[#FF8C9C]">{price.trim()}</span>
             </div>
@@ -67,7 +67,7 @@ const LearningDropOutput: React.FC<LearningDropOutputProps> = ({ message, source
         const { title, url } = fallbackMatch.groups;
         return (
             <div key={index} className="mb-4">
-              <a href={url.trim()} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-white hover:underline">{title.trim()}</a>
+              <a href={url.trim()} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-sky-400 underline hover:text-sky-300 transition-colors">{title.trim()}</a>
               <div className="text-sm text-[#FFBDC6] mt-1">
                 (Link)
               </div>
@@ -127,7 +127,7 @@ const LearningDropOutput: React.FC<LearningDropOutputProps> = ({ message, source
                   href={source.uri} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-[#FFDEE2] hover:text-white hover:underline"
+                  className="text-sky-400 underline hover:text-sky-300 transition-colors"
                   title={source.uri}
                 >
                   {source.title || source.uri}
